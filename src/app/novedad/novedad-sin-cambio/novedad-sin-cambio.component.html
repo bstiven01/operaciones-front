@@ -1,0 +1,89 @@
+<form [formGroup]="myForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Novedad Sin Cambio de {{nombre}}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <section fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="15px grid">
+
+        <!--Bus-->
+        <mat-form-field fxFlex="80" *ngIf="ifBus">
+          <mat-label>Buses *</mat-label>
+          <mat-select formControlName="idBus" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeBus of tiposDeBus" [value]="tipoDeBus">{{tipoDeBus.codigo}}
+            </mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idNuevoBus.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Operador-->
+        <mat-form-field fxFlex="80" *ngIf="ifOperador">
+          <mat-label>Operadores *</mat-label>
+          <mat-select formControlName="idOperador" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeOperador of tiposDeOperador" [value]="tipoDeOperador">
+              {{tipoDeOperador.codigo}} - {{tipoDeOperador.primerNombre}} - {{tipoDeOperador.primerApellido}}
+            </mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idNuevoOperador.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+      </section>
+
+      <section fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="15px grid">
+
+        <!--Tipo Novedad-->
+        <mat-form-field fxFlex="50">
+          <mat-label>Tipo Novedad *</mat-label>
+          <mat-select formControlName="idTipoNovedad" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeNovedad of tiposDeNovedad" [value]="tipoDeNovedad">{{tipoDeNovedad.nombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idTipoNovedad.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Sitios-->
+        <mat-form-field fxFlex="50">
+          <mat-label>Sitio *</mat-label>
+          <mat-select formControlName="idSitio" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeSitio of tiposDeSitio" [value]="tipoDeSitio">{{tipoDeSitio.nombre}} {{tipoDeSitio.posicion}}
+            </mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idSitio.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+      </section>
+
+
+      <section fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="15px grid">
+
+        <!-- Motivo -->
+        <mat-form-field fxFlex="100">
+          <mat-label>Motivo</mat-label>
+          <textarea matInput placeholder="Motivo" formControlName="motivo"></textarea>
+          <mat-error matInput *ngIf="myForm.controls.motivo.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+      </section>
+
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="warn" [disabled]="">CERRAR</button>
+      <button mat-raised-button color="accent" [disabled]="banderaBotones" (click)="pendiente()">PENDIENTE</button>
+      <button mat-raised-button color="primary" [disabled]="banderaBotones" (click)="reportada()">REPORTAR</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

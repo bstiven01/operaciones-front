@@ -1,0 +1,329 @@
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Consulta operador</h1>
+  </div>
+
+  <div class="row">
+
+    <div class="card md-12 col-md-12">
+      <div class="card-header">
+        Operador
+      </div>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <form class="user row" [formGroup]="myForm">
+
+              <div class="col-md-6 offset-3">
+                <div class="form-group row">
+                  <div class="col-md-8">
+                    <label>Código</label>
+                    <input type="text" class="form-control form-control-user" placeholder="Código"
+                      formControlName="codigo" />
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row">
+                      <button type="submit" class="btn btn-primary btn-user btn-block" style="margin-top: 35px;"
+                        (click)="consultarOperadorByCodigo()" [disabled]="myForm.invalid">
+                        Consultar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12" *ngIf="banderaDatos">
+                <hr>
+              </div>
+
+              <div *ngIf="banderaDatos" class="col-md-10">
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label>Nombres</label>
+                    <input type="text" class="form-control form-control-user" placeholder="Nombres"
+                      formControlName="nombres" disabled />
+                  </div>
+                  <div class="col-sm-6">
+                    <label>Apellidos</label>
+                    <input type="text" class="form-control form-control-user" placeholder="Apellidos"
+                      formControlName="apellidos" disabled />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <label>RH</label>
+                    <input type="text" class="form-control form-control-user" placeholder="RH" formControlName="idRh"
+                      disabled />
+                  </div>
+
+                  <div class="col-md-4">
+                    <label>ARL</label>
+                    <input type="text" class="form-control form-control-user" placeholder="ARL" formControlName="idArl"
+                      disabled />
+                  </div>
+                  <div class="col-md-4">
+                    <label>EPS</label>
+                    <input type="text" class="form-control form-control-user" placeholder="EPS" formControlName="idEps"
+                      disabled />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <label>Fecha vencimiento <strong>PASE</strong> de conducción</label>
+                    <input type="date" class="form-control form-control-user" formControlName="vigenciaLicencia"
+                      disabled />
+                  </div>
+                  <div class="col-md-4">
+                    <label>FECHA DE CONTRATACIÓN</label>
+                    <input type="date" class="form-control form-control-user" formControlName="fechaContratacion"
+                      disabled />
+                  </div>
+                  <div class="col-md-4">
+                    <label>ESTADO</label>
+                    <input type="text" class="form-control form-control-useruser" formControlName="estado" disabled />
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-2 text-center center-vert" *ngIf="banderaDatos">
+                <img class="img-fluid "
+                  src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                  width="265" />
+                <!--<div class="alert alert-success" role="alert" *ngIf="payload.length === 0"> Sin
+                  novedades</div>
+                <div class="alert alert-danger" role="alert" *ngIf="payload.length > 50 && payload.length < 100">
+                  Novedades </div>
+                <div class="alert alert-danger" role="alert" *ngIf="payload.length > 100"> Altas
+                  novedades </div>-->
+              </div>
+
+            </form>
+
+          </div>
+
+          <!-- <div class="col-md-12" *ngIf="infoOperador != null && operacionActual === null">
+            <div class="alert alert-warning text-center" role="alert">
+              El operador no tiene novedades
+            </div>
+          </div> -->
+
+          <div class="col-md-12" *ngIf="operacionActual !== null">
+            <hr>
+            <div class="card">
+              <div class="card-header card-header-no-margin alert alert-primary">
+                {{infoOperador.idEstado.descripcion}}
+              </div>
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Operador</th>
+                      <th scope="col">Tabla</th>
+                      <th scope="col">Ruta</th>
+                      <th scope="col">Hora</th>
+                      <th scope="col">Fecha</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>{{infoOperador['primerApellido']}} {{infoOperador['primerNombre']}}</th>
+                      <td>{{operacionActual['tabla']}}</td>
+                      <td>{{operacionActual['sitioDesde']}} {{operacionActual['sitioHasta']}}</td>
+                      <td>{{operacionActual['horaInicio']}}</td>
+                      <td>{{operacionActual['fecha']}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>Bus: A154</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>Tabla: 484</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>Destino: Portal Norte</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!--<div class="form-group row" *ngIf="payload!==undefined">
+          <form [formGroup]="myForm2">
+            <div class="col-md-12">
+              <div class="card-body card-table">
+                <div class="table-responsive">
+                  <p-table #dt [value]="payload" [columns]="selectedColumns" [scrollable]="true" [rowHover]="true"
+                    [rows]="10" [loading]="loading" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+                    [resizableColumns]="true" styleClass="table table-striped">
+
+                    <ng-template pTemplate="caption">
+                      <div style="text-align:left">
+                        <p-multiSelect [(ngModel)]="selectedColumns" [options]="cols" formControlName="selectedColumns"
+                          optionLabel="header" selectedItemsLabel="{0} columnas seleccionadas"
+                          [style]="{minWidth: '200px'}" defaultLabel="Escojer columnas">
+                        </p-multiSelect>
+                      </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="emptymessage">
+                      No se encontraron resultados
+                    </ng-template>
+
+                    <ng-template pTemplate="colgroup" let-columns>
+                      <colgroup>
+                        <col *ngFor="let col of columns" [style.width]="col.width" pResizableColumn>
+                      </colgroup>
+                    </ng-template>
+
+                    <ng-template pTemplate="header" let-columns>
+
+                      <---Fila Principal con las columnas--
+                      <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.totalfield" pResizableColumn>
+                          {{col.header}}
+
+                          <p-sortIcon *ngIf="col.field != 'accion'" [field]="col.field" ariaLabel="Activate to sort">
+                          </p-sortIcon>
+                        </th>
+                      </tr>
+
+                      <--Fila Secundaria con los campos de filtro--
+
+                      <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{'width': col.width}"
+                          pResizableColumn>
+
+                          <input pInputText *ngSwitchCase="'fecha'" formControlName="Ffecha" type="text"
+                            (input)="dt.filter($event.target.value, col.field, 'fechaDate')" class="form-control">
+
+                          <input pInputText *ngSwitchCase="'idTipo'" formControlName="Ftipo" type="text"
+                            class="ui-column-filter"
+                            (input)="dt.filter($event.target.value, col.totalfield, 'contains')" class="form-control">
+
+                          <input pInputText *ngSwitchCase="'idEstado'" formControlName="Festado" type="text"
+                            class="ui-column-filter"
+                            (input)="dt.filter($event.target.value,  col.totalfield, 'contains')" class="form-control">
+
+                          <input pInputText *ngSwitchCase="'valorAnterior'" formControlName="Vanterior" type="text"
+                            class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                            class="form-control">
+
+                          <input pInputText *ngSwitchCase="'valorNuevo'" formControlName="Vnuevo" type="text"
+                            class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                            class="form-control">
+
+                          <input pInputText *ngSwitchCase="'motivo'" formControlName="Fmotivo" type="text"
+                            class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                            class="form-control">
+
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <--Tercera y Siguientes filas con la informacion--
+                    <ng-template pTemplate="body" let-ope let-columns="columns">
+                      <tr [ngClass]="ope.idEstado.codigo == 'NOV_PENDIENTE' ? 'pendiente' : 'reportada'">
+                        <td *ngFor="let col of columns">
+                          <p *ngIf="col.field=='fecha'">
+                            {{ope.fecha | date:'dd/MM/yyyy, HH:mm:ss'}}
+                          </p>
+
+                          <p *ngIf="col.field!='fecha' && col.field!='accion'">
+                            {{ope[col.field]== null || col.subfield==null ? ope[col.field] : ope[col.field][col.subfield]}}
+                          </p>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>-->
+
+        <mat-card>
+
+          <mat-card-content>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+              </mat-form-field>
+            </div>
+
+            <br>
+
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+              <!-- Index -->
+              <ng-container matColumnDef="Fecha">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+              </ng-container>
+
+              <!-- Documento -->
+              <ng-container matColumnDef="Tipo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.idTipo.nombre}} </td>
+              </ng-container>
+
+              <!-- Primer Nombre -->
+              <ng-container matColumnDef="Estado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                <td mat-cell *matCellDef="let element"> {{element.idEstado.nombre}} </td>
+              </ng-container>
+
+              <!-- Primer Apellido -->
+              <ng-container matColumnDef="Motivo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Motivo </th>
+                <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
+              </ng-container>
+
+              <!-- Editar -->
+              <ng-container matColumnDef="Ver">
+                <th mat-header-cell *matHeaderCellDef> Ver </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button  class="color-editar" [disabled]="true">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <!-- Deshabilitar -->
+              <!-- <ng-container matColumnDef="Deshabilitar">
+                      <th mat-header-cell *matHeaderCellDef> Deshabilitar </th>
+                      <td mat-cell *matCellDef="let element">
+                          <button mat-icon-button (click)="deshabilitarOperador(element)" color="warn">
+                              <mat-icon>delete</mat-icon>
+                          </button>
+                      </td>
+                  </ng-container> -->
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons> </mat-paginator>
+
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white"></p>
+</ngx-spinner>

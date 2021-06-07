@@ -1,0 +1,24 @@
+<form [formGroup]="myForm">
+  <mat-card>
+
+    <mat-card-header>
+      <mat-card-title>Asignacion de bus a operador: {{nombre_operador}}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <mat-selection-list #disponibilidadBuses class="card-list" formControlName="idDisponibilidadBus">
+        <mat-list-option *ngFor="let bus of listDiponibilidadBuses" [value]="bus" color="primary">
+          {{bus.idBus.codigo}} - {{bus.idTipo.nombre}} - {{bus.horaInicio | date:'HH:mm'}} a
+          {{bus.horaFin | date:'HH:mm'}}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="basic" (click)="closeDialog(false)">CERRAR</button>
+      <button mat-raised-button color="primary" (click)="guardar()" [disabled]="this.myForm.invalid">GUARDAR</button>
+    </mat-card-actions>
+
+  </mat-card>
+</form>

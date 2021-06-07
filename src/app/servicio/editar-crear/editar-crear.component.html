@@ -1,0 +1,55 @@
+<div mat-dialog-title>
+    <div class="p-grid">
+        <div class="p-col">Servicio</div>
+        <button mat-icon-button type="button" (click)="closeDialog(null)">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+
+<div mat-dialog-content>
+    <form class="user column" [formGroup]="form">
+        <div class="row">
+            <div class="form-group">
+                <label>Código</label>
+                <input type="text" class="form-control form-control-user" formControlName="codigo" />
+            </div>
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control form-control-user" formControlName="nombre" />
+            </div>
+
+            <div class="form-group">
+                <label>Etiqueta</label>
+                <input type="text" class="form-control form-control-user" formControlName="etiqueta" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Servicio Padre <mat-spinner *ngIf="onRequest" diameter="20"></mat-spinner></label>
+            <ng-select [items]="serviciosPadre | async" formControlName="idServicio" autofocus bindLabel="nombre" bindValue="id">
+            </ng-select>
+        </div>
+
+        <div class="form-group">
+            <label>Tipo de servicio <mat-spinner *ngIf="onRequest" diameter="20"></mat-spinner></label>
+            <ng-select [items]="tipos | async" formControlName="idTipoServicio" autofocus bindLabel="nombre" bindValue="id">
+            </ng-select>
+        </div>
+
+        <div class="form-group">
+            <label>Estado del servicio <mat-spinner *ngIf="onRequest" diameter="20"></mat-spinner></label>
+            <ng-select [items]="estados | async" formControlName="idEstado" autofocus bindLabel="nombre" bindValue="id">
+            </ng-select>
+        </div>
+    </form>
+</div>
+
+<div mat-dialog-actions>
+    <div class="col-md-4 offset-md-4">
+        <button type="button" class="btn btn-success btn-user btn-block"  (click)="ejecutar()">
+            ACEPTAR
+        </button>
+    </div>
+</div>

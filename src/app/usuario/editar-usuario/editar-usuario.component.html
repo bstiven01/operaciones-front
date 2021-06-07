@@ -1,0 +1,107 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Editar usuario</h1>
+    </div>
+
+    <div class="row" *ngIf="usuario != null">
+
+        <div class="card md-12 col-md-12">
+            <div class="card-header">
+                {{usuario.nombre}}
+            </div>
+            <div class="card-body">
+
+                <div class="p-5">
+
+                    <form class="user" [formGroup]="formulario" (ngSubmit)="editar()">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-user"
+                                    placeholder="Nombre de usuario*" formControlName="usuario"
+                                    [(ngModel)]="usuario.usuario" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" readonly class="form-control form-control-user" value="{{id}}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-user" placeholder="Nombre completo*"
+                                    formControlName="nombre" [(ngModel)]="usuario.nombre" />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-user" placeholder="Celular*"
+                                    formControlName="celular" [(ngModel)]="usuario.celular" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <select class="form-control form-control-user" formControlName="rol"
+                                    [(ngModel)]="usuario.rol">
+                                    <option value="">Seleccionar Rol</option>
+                                    <option *ngFor="let r of roles" value="{{r._id}}">{{r.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <input type="email" class="form-control form-control-user" name="email"
+                                    placeholder="Correo electrónico" formControlName="email"
+                                    [(ngModel)]="usuario.email" />
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-success btn-user btn-block" type="button"
+                                    (click)="agregarEmail()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="emails.length > 0">
+                            <div class="row" *ngFor="let e of emails; let i = index">
+                                <div class="col-md-10">
+                                    <input type="email" class="form-control form-control-user" name="{{emails[i].id}}"
+                                        [(ngModel)]="emails[i].value" placeholder="Correo electrónico"
+                                        [ngModelOptions]="{standalone: true}" />
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-danger btn-user btn-block" type="button"
+                                        (click)="eliminarEmail(i)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="password" class="form-control form-control-user" placeholder="Contraseña"
+                                    formControlName="password" />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control form-control-user"
+                                    placeholder="Repetir contraseña" formControlName="rpassword" />
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <div class="col-md-3">
+                                <button type="button" routerLink="/usuario" class="btn btn-danger btn-user btn-block">
+                                    Regresar
+                                </button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary btn-user btn-block"
+                                    [disabled]="!formulario.valid">
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

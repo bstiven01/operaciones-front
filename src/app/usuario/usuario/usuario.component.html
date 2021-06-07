@@ -1,0 +1,66 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="card md-12 col-lg-12">
+            <div class="card-header">
+                Lista de usuarios
+            </div>
+            <div class="card-body">
+
+                <div class="row" *ngIf="usuarios.length == 0">
+                    <div class="col-md-12 text-center">
+                        <h1>No se encontraron usuarios</h1>
+                    </div>
+                </div>
+
+                <table class="table" *ngIf="usuarios.length > 0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let u of usuarios">
+                            <td>{{u._id}}</td>
+                            <td>{{u.nombre}}</td>
+                            <td>{{u.email}}</td>
+                            <td>{{u.codigo}}</td>
+                            <td>{{u.rol}}</td>
+                            <td>
+                                <button class="btn btn-success btn-icon-split" routerLink="/usuario/editar/{{u._id}}">
+                                    <span class="icon"><i class="fas fa-edit"></i></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-icon-split" (click)="eliminar(u._id)">
+                                    <span class="icon"><i class="fas fa-trash"></i></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<a routerLink="/usuario/agregar" class="float-button">
+    <i class="fa fa-plus my-float"></i>
+</a>

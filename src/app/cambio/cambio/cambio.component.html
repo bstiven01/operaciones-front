@@ -1,0 +1,218 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Asignacion</h1>
+    </div>
+
+    <div class="row">
+        <div class="card md-12 col-lg-12">
+            <div class="card-header">
+                Asignación de buses 
+            </div>
+            <div class="card-body">
+                <p-calendar [(ngModel)]="value"  [locale]="es" dateFormat="dd/mm/yy" inputId="spanish" [inline]="true" [showWeek]="true"></p-calendar><br>
+                <br>
+                <button class="btn btn-primary" (click)="procesar()">Procesar Asignación</button>
+                <!-- <div class="row">
+                    <div class="col-md-3">
+                        <div class="card long-card">
+                            <div class="card-header text-center">
+                                Selección de tabla
+                                <i class="fas fa-table"></i>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Buscar..." />
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios"
+                                                id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Tabla # 1
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios"
+                                                id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Tabla # 2
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios"
+                                                id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Tabla # 3
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="drag-box">
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-primary" style="margin-top: 50px;">TABLA #</button>
+                                </div>
+                                <div class="col-md-10">
+                                    <table class="table table-bordered" style="margin-top: 20px;">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Servicio</th>
+                                                <th scope="col">Hora ini</th>
+                                                <th scope="col">hora fin</th>
+                                                <th scope="col">Punto fin</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card long-card">
+                            <div class="card-header text-center">
+                                Selección de bus
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Buscar..." />
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios"
+                                                id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Bus # 1
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios"
+                                                id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Bus # 2
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios"
+                                                id="exampleRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                                Bus # 3
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <table>
+                                    <tr>
+                                        <td *ngFor="let d of dias">
+                                            <label>{{d}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td *ngFor="let d of dias">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="{{d}}">
+                                                <label class="custom-control-label" for="{{d}}"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <hr />
+                                <button class="btn btn-primary">Cargar datos</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless" style="border: solid;">
+                                            <tr class="btn-danger">
+                                                <th class="text-center">S001</th>
+                                            </tr>
+                                            <tr>
+                                                <img width="50" src="assets/img/bus.png" />
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless" style="border: solid;">
+                                            <tr class="btn-danger">
+                                                <th class="text-center">Kilometraje</th>
+                                            </tr>
+                                            <tr>
+                                                <td>9999</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <table class="table table-borderless" style="border: solid;">
+                                            <tr class="btn-danger">
+                                                <th class="text-center">Conductor</th>
+                                                <th class="text-center">Código</th>
+                                            </tr>
+                                            <tr>
+                                                <td>CRUZ ARLEY GEVANNY</td>
+                                                <td>6666</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p class="textoSpinner">{{mensajeSpiner}}</p>
+  <p class="textoSpinner">{{descripcionSpiner}}</p>
+</ngx-spinner>

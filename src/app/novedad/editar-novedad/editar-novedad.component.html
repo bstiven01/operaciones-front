@@ -1,0 +1,124 @@
+<div class="card col-md-12 top-20">
+    <div class="card-header primary">
+        Editar novedad extraordinaria
+    </div>
+    <div class="card-body" *ngIf="novedad !== null">
+
+        <form class="user row" [formGroup]="myForm">
+
+            <div class="form-group col-md-6">
+                <label>Novedad *</label>
+                <ng-select [items]="tiposNovedad" formControlName="idTipoNovedad" [(ngModel)]="novedad.idTipo" autofocus
+                    bindLabel="nombre">
+                </ng-select>
+
+            </div>
+
+
+            <div class="form-group col-md-6" *ngIf="novedad.idTipo.nombreTipoNovedadPadre === 'OPERADOR'">
+                <label>Operador *</label>
+
+                <!--
+                <ng-select [items]="operadores" formControlName="objetoRelacionado" autofocus
+                    [(ngModel)]="novedad.objetoRelacionado" bindLabel="codigo">
+                </ng-select>
+                -->
+
+                <ng-select [items]="operadores" formControlName="objetoRelacionado" autofocus [(ngModel)]="novedad.objetoRelacionado" bindLabel="codigo">
+
+                    <ng-template ng-label-tmp let-item="item">
+                        <span >{{ item.primerNombre + ' ' + item.segundoApellido + ' - ' + item.codigo}}</span>
+                    </ng-template>
+                    
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                          <span >{{ item.primerNombre + ' ' + item.segundoApellido + ' - ' + item.codigo }}</span>
+                    </ng-template>
+
+                </ng-select>
+
+
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="novedad.idTipo.nombreTipoNovedadPadre === 'BUS'">
+
+                <label>Bus *</label>
+
+                <!--
+                <ng-select [items]="buses" formControlName="objetoRelacionado" autofocus
+                    [(ngModel)]="novedad.objetoRelacionado" bindLabel="placa">
+                </ng-select>
+                -->
+
+                <ng-select [items]="buses" formControlName="objetoRelacionado" autofocus [(ngModel)]="novedad.objetoRelacionado" bindLabel="placa">
+
+                    <ng-template ng-label-tmp let-item="item">
+                        <span >{{ item.placa + ' - ' + item.marca + ' - ' + item.modelo}}</span>
+                    </ng-template>
+                    
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                          <span >{{ item.placa + ' - ' + item.marca + ' - ' + item.modelo }}</span>
+                    </ng-template>
+
+                </ng-select>
+
+            </div>
+
+
+            <!--
+            <div class="form-group col-md-6">
+                <label>Fecha y hora inicio *</label>
+                <input type="datetime-local" class="form-control form-control-user" formControlName="fInicial"
+                    min="{{todate | date:'yyyy-MM-dd'}}" [(ngModel)]="novedad.fechaInicio" [value]="novedad.fechaInicio" />
+            </div>
+            <div class="form-group col-md-6">
+                <label>Fecha y hora fin *</label>
+                <input type="datetime-local" class="form-control form-control-user" formControlName="fFinal"
+                    min="{{todate | date:'yyyy-MM-dd'}}" [(ngModel)]="novedad.fechaFin" />
+            </div>
+            -->
+
+            <div class="form-group col-md-12">
+                <label>Sitio *</label>
+                <ng-select [items]="sitios" formControlName="idSitio" [(ngModel)]="novedad.idSitio" autofocus
+                    bindLabel="nombre">
+
+                    <ng-template ng-label-tmp let-item="item">
+                        <span >{{ item.nombre + item.posicion }}</span>
+                    </ng-template>
+                    
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                          <span >{{ item.nombre + item.posicion }}</span>
+                    </ng-template>
+
+                </ng-select>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>Motivo *</label>
+                <textarea class="form-control" formControlName="motivo" [(ngModel)]="novedad.motivo"
+                    maxlength="500"></textarea>
+                <small>0 - 500 caracteres</small>
+            </div>
+
+            <div class="col-md-6">
+                <button type="button" class="btn btn-warning btn-user btn-block" (click)="submit(1)"
+                    [disabled]="myForm.invalid || myForm.untouched">
+                    PENDIENTE
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <button type="button" class="btn btn-info btn-user btn-block" (click)="submit(2)" data-dismiss="modal"
+                    [disabled]="myForm.invalid || myForm.untouched">
+                    REPORTAR
+                </button>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white"></p>
+</ngx-spinner>

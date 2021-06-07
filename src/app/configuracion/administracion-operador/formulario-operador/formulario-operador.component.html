@@ -1,0 +1,182 @@
+<form [formGroup]="myForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>FORMULARIO {{nombre}} OPERADORES</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!--Codigo-->
+        <mat-form-field flex="30">
+          <mat-label>Codigo *</mat-label>
+          <input matInput placeholder="Codigo *" formControlName="codigo">
+          <mat-error *ngIf="myForm.controls.codigo.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Tipo de Documento-->
+        <mat-form-field flex="30">
+          <mat-label>Tipo de Documento *</mat-label>
+          <mat-select formControlName="idTipoDocumento" [compareWith]="selectedSelect">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let tipoDeDocumento of tiposDeDocumento" [value]="tipoDeDocumento">
+              {{tipoDeDocumento.nombre}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="myForm.controls.idTipoDocumento.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Numero de Documento-->
+        <mat-form-field flex="30">
+          <mat-label>Numero de Documento *</mat-label>
+          <input matInput placeholder="Numero de Documento *" formControlName="numeroDocumento">
+          <mat-error *ngIf="myForm.controls.numeroDocumento.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!--Primer Nombre-->
+        <mat-form-field fxFlex="45">
+          <mat-label>Primer Nombre *</mat-label>
+          <input matInput placeholder="Primer Nombre *" formControlName="primerNombre">
+          <mat-error *ngIf="myForm.controls.primerNombre.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Segundo Nombre-->
+        <mat-form-field fxFlex="45">
+          <mat-label>Segundo Nombre</mat-label>
+          <input matInput placeholder="Segundo Nombre" formControlName="segundoNombre">
+          <mat-error *ngIf="myForm.controls.segundoNombre.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!--Primer Apellido-->
+        <mat-form-field fxFlex="45">
+          <mat-label>Primer Apellido *</mat-label>
+          <input matInput placeholder="Primer Apellido *" formControlName="primerApellido">
+          <mat-error *ngIf="myForm.controls.primerApellido.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Segundo Apellido-->
+        <mat-form-field fxFlex="45">
+          <mat-label>Segundo Apellido</mat-label>
+          <input matInput placeholder="Segundo Apellido" formControlName="segundoApellido">
+          <mat-error *ngIf="myForm.controls.segundoApellido.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!--Categoria Licencia-->
+        <mat-form-field fxFlex="30">
+          <mat-label>Categoria Licencia *</mat-label>
+          <mat-select formControlName="idCategoriaLicencia" [compareWith]="selectedSelect">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let tipoDeLicencia of tiposDeLicencia" [value]="tipoDeLicencia">
+              {{tipoDeLicencia.nombre}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="myForm.controls.idCategoriaLicencia.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Vigencia de Licencia-->
+        <mat-form-field fxFlex="30">
+          <mat-label>Vigencia de Licencia *</mat-label>
+          <input type="date" matInput placeholder="Vigencia de Licencia *" formControlName="vigenciaLicencia">
+          <mat-error matInput *ngIf="myForm.controls.vigenciaLicencia.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Fecha de Contratacion-->
+        <mat-form-field fxFlex="30">
+          <mat-label>Fecha de Contratación *</mat-label>
+          <input type="date" matInput placeholder="Fecha de Contratación *" formControlName="fechaContratacion">
+          <mat-error matInput *ngIf="myForm.controls.fechaContratacion.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!--RH-->
+        <mat-form-field fxFlex="20">
+          <mat-label>RH *</mat-label>
+          <mat-select formControlName="idRh" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeRh of tiposDeRh" [value]="tipoDeRh">{{tipoDeRh.nombre}}</mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idRh.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Eps-->
+        <mat-form-field fxFlex="20">
+          <mat-label>Eps *</mat-label>
+          <mat-select formControlName="idEps" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeEps of tiposDeEps" [value]="tipoDeEps">{{tipoDeEps.nombre}}</mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idEps.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--ARL-->
+        <mat-form-field fxFlex="20">
+          <mat-label>ARL *</mat-label>
+          <mat-select formControlName="idArl" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeArl of tiposDeArl" [value]="tipoDeArl">{{tipoDeArl.nombre}}</mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idArl.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Estado-->
+        <mat-form-field fxFlex="20">
+          <mat-label>Estado *</mat-label>
+          <mat-select formControlName="idEstado" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeEstado of tiposDeEstado" [value]="tipoDeEstado">{{tipoDeEstado.nombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idEstado.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+
+
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="myForm.untouched">{{nombre}}</button>
+      <button mat-raised-button (click)="closeDialog()">CERRAR</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

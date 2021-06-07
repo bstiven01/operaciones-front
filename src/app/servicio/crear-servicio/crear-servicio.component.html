@@ -1,0 +1,136 @@
+<div class="container-fluid">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Viaje</h1>
+        </div>
+
+        <div class="row">
+
+            <div class="card md-12 col-lg-12">
+                <div class="card-header">
+                    Crear servicio
+                </div>
+                <div class="card-body">
+                    <form class="user row" [formGroup]="myForm">
+
+                        <div class="form-group col-md-3" *ngIf="infoConductor != null">
+                            <label>Código</label>
+                            <input type="text" class="form-control form-control-user" [value]="infoConductor.codigoConductor" disabled />
+                        </div>
+
+                        <div class="form-group col-md-3" *ngIf="infoConductor != null">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control form-control-user" [value]="infoConductor.nombreCompletoCondutor" disabled />
+                        </div>
+
+                        <div class="form-group col-md-3" *ngIf="infoConductor != null">
+                            <label>Fecha</label>
+                            <input type="text" class="form-control form-control-user" [value]="infoConductor.fecha" disabled />
+                        </div>
+
+                        <div class="form-group col-md-3" *ngIf="infoConductor != null">
+                            <label>Hora</label>
+                            <input type="time" class="form-control form-control-user" [value]="infoConductor.horaInicio" disabled />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Servicio *</label>
+                            <ng-select [items]="servicios" formControlName="idServicio" autofocus bindLabel="nombre">
+                            </ng-select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Hora Inicio</label>
+                            <input type="time" class="form-control form-control-user" value="21:50"
+                                formControlName="horaInicio" />
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label>Hora fin</label>
+                            <input type="time" class="form-control form-control-user" value="21:50"
+                                formControlName="horaFin" />
+                        </div>
+
+                        <div class="form-group col-md-2" *ngIf="infoConductor != null">
+                          <label>Código</label>
+                          <input type="text" class="form-control form-control-user" [value]="infoConductor.codigoBus" disabled />
+                      </div>
+
+                        <div class="form-group col-md-2">
+                            <label>Cantidad</label>
+                            <input type="number" class="form-control form-control-user" formControlName="cantidad"
+                                value="100" />
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+
+                        <div class="col-md-4 offset-md-4">
+                            <button type="button" class="btn btn-success btn-user btn-block" (click)="submit()"
+                                [disabled]="myForm.invalid || myForm.untouched">
+                                ACEPTAR
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="card md-12 col-lg-12" style="margin-top: 20px;" *ngIf="serviciosHijos.length > 0">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p style="margin: 0; padding: 0; margin-top: 6px;"> Confirmar envío de servicios </p>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-info" (click)="enviarServicios()">
+                                CONFIRMAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Bus</th>
+                                <th scope="col">Servicio</th>
+                                <!--
+                                <th scope="col">Desde</th>
+                                <th scope="col">Hasta</th>
+                                -->
+                                <th scope="col">Hora I</th>
+                                <th scope="col">Hora F</th>
+                                <th scope="col">Borrar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let servicio of serviciosAgregar; index as i">
+                                <th>{{servicio.codigo_bus}}</th>
+                                <td>{{buscarNombreServicioHijo(servicio.idServicio)}}</td>
+                                <!--
+                                <td>A</td>
+                                <td>B</td>
+                                -->
+                                <td>{{servicio.horaInicio}}</td>
+                                <td>{{servicio.horaFin}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="eliminarServicio(i)">Borrar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+        <p style="font-size: 20px; color: white">{{mensajeSpiner}}</p>
+    </ngx-spinner>

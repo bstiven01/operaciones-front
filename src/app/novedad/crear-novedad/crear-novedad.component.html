@@ -1,0 +1,125 @@
+<div class="card col-md-12">
+    <div class="card-header primary">
+        Crear novedad
+    </div>
+    <div class="card-body">
+
+        <form class="user" [formGroup]="myForm">
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Tipo *</label>
+
+                            <ng-select [items]="padresTipoNovedad" formControlName="idPadreTipoNovedad" autofocus
+                                bindLabel="nombre"
+                                (ngModelChange)="llenarSelect(myForm.controls.idPadreTipoNovedad.value.id, myForm.controls.idPadreTipoNovedad.value.codigo)">
+                            </ng-select>
+
+                        </div>
+                        <div class="col-md-4">
+                            <label>Novedad *</label>
+
+                            <ng-select [items]="tiposNovedad" formControlName="idTipoNovedad" autofocus
+                                bindLabel="nombre">
+                            </ng-select>
+
+
+                        </div>
+                        <div class="col-md-4" *ngIf="ngIfOperador">
+                            <label>Operador de relevo*</label>
+
+                            <ng-select [items]="operadores" formControlName="idTipoOculto" autofocus bindLabel="codigo">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <span >{{ item.codigo + ' - ' + item.primerNombre + ' ' + item.segundoApellido}}</span>
+                                </ng-template>
+                                
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                      <span >{{ item.codigo + ' - ' + item.primerNombre + ' ' + item.segundoApellido}}</span>
+                                </ng-template>
+                            </ng-select>
+                            
+
+                        </div>
+                        <div class="col-md-4" *ngIf="ngIfBus">
+                            <label>Bus *</label>
+
+                            <!--
+                            <ng-select [items]="buses" formControlName="idTipoOculto" autofocus bindLabel="codigo">
+                            </ng-select>
+                            -->
+
+                            <ng-select [items]="buses" formControlName="idTipoOculto" autofocus bindLabel="codigo">
+
+                                <ng-template ng-label-tmp let-item="item">
+                                    <span >{{ item.codigo }}</span>
+                                </ng-template>
+                                
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                      <span >{{ item.codigo  }}</span>
+                                </ng-template>
+            
+                            </ng-select>
+
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label>Fecha y hora fin *</label>
+                            <input type="text" class="form-control form-control-user" [owlDateTime]="fInicial" [owlDateTimeTrigger]="fInicial" placeholder="Fecha y hora inicial" disabled  />
+                            <owl-date-time #fInicial></owl-date-time>
+                        </div>            
+
+                        <div class="form-group col-md-12">
+                            <label>Sitio *</label>
+                            <ng-select [items]="sitios" formControlName="idSitio" autofocus bindLabel="nombre">
+
+                                <ng-template ng-label-tmp let-item="item">
+                                    <span >{{ item.nombre + item.posicion }}</span>
+                                </ng-template>
+                                
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                      <span >{{ item.nombre + item.posicion }}</span>
+                                </ng-template>
+
+                            </ng-select>
+                        </div>
+
+                        <div class="col-md-4" *ngIf="ngIfServicio">
+                            <label>Servicio *</label>
+                            <ng-select [items]="servicios" formControlName="idTipoOculto" autofocus bindLabel="nombre">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Motivo *</label>
+                            <textarea class="form-control" formControlName="motivo" maxlength="500"></textarea>
+                            <small>0 - 500 caracteres</small>
+                        </div>
+                    </div>
+             
+
+            <div class="form-group row justify-content-center">
+
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-danger btn-user btn-block" (click)="closeModal()">
+                        Regresar
+                    </button>
+                </div>
+
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success btn-user btn-block" (click)="submit()">
+                        Reportar
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white"></p>
+</ngx-spinner>

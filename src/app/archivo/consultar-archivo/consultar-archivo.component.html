@@ -1,0 +1,65 @@
+<form [formGroup]="formulario">
+    <div class="card-body card-table">
+        <div class="table-responsive">
+            <p-table #dt [value]="payload" [columns]="selectedColumns" [scrollable]="true" [rowHover]="true" [rows]="10"
+                [loading]="loading" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [resizableColumns]="true"
+                styleClass="table table-striped">
+                <ng-template pTemplate="caption">
+                    <div style="text-align:left">
+                        <p-multiSelect [(ngModel)]="selectedColumns" [options]="cols" formControlName="selectedColumns"
+                            optionLabel="textoAlternativo" selectedItemsLabel="{0} columnas seleccionadas"
+                            [style]="{minWidth: '200px'}" defaultLabel="Escojer columnas">
+                        </p-multiSelect>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    No se encontraron resultados
+                </ng-template>
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col *ngFor="let col of columns" [style.width]="col.width" pResizableColumn>
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" *ngIf="col.field!='boton'" ariaLabel="Activate to sort"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{'width': col.width}"
+                            pResizableColumn>
+
+                            <input pInputText *ngSwitchCase="'nombreArchivo'" formControlName="FnombreArchivo"
+                                type="text" class="ui-column-filter"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')" class="form-control">
+
+                            <input pInputText *ngSwitchCase="'fechaCargue'" formControlName="Ffecha" type="text"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')" class="form-control">
+
+                            <input pInputText *ngSwitchCase="'idEstado'" formControlName="FidEstado" type="text"
+                                class="ui-column-filter"
+                                (input)="dt.filter($event.target.value, col.fullfield, 'contains')"
+                                class="form-control">
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-ope let-columns="columns">
+                    <tr [pContextMenuRow]="ope">
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <p *ngIf="col.field!='boton' && col.field!='fechaCargue'">{{col.subfield==undefined?ope[col.field]:ope[col.field][col.subfield]}}</p>
+                            <p *ngIf="col.field=='fechaCargue'">{{ope[col.field] | date:'medium'}}</p>
+                            <p *ngIf="col.field=='boton'">
+                                <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"(click)="exportarReporte(ope.nombreArchivo, ope.idEstado.codigo);">
+                                    <i class="fas fa-plus fa-sm text-white-50"></i>
+                                    Descargar
+                                </button>
+                            </p>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</form>

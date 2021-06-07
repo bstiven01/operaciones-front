@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Import maven model",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "mvn",
+            "args": [
+                "install:install-file",
+                "\"-Dfile=..\\modelos\\3.8\\modeloDatos.jar\"",
+                "\"-DgroupId=co.tyctic.operacione.modelo\"",
+                "\"-DartifactId=modeloDatos\"",
+                "\"-Dversion=3.8\"",
+                "\"-Dpackaging=jar\""
+            ],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

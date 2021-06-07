@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="card col-md-4">
+            <div class="card-header">
+                Menú
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush file-menu list-group-item-action">
+                    <li class="list-group-item list-group-item-action" (click)="consultarCargue('TODO')"><i class="fas fa-book"></i> Archivos cargados</li>
+                    <li class="list-group-item list-group-item-action" (click)="consultarCargue('ULTIMASEMANA')"><i class="far fa-clock"></i> Recientes</li>
+                    <li class="list-group-item list-group-item-action" (click)="consultarCargue('ERROR')"><i class="far fa-trash-alt"></i> Archivos con error</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card col-md-8">
+            <div class="card-header">
+                Cargar Archivo de Novedades
+            </div>
+            <div class="card-body">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
+                        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                            <p>Suelta los archivos aquí o utiliza el botón de Nuevo. </p>
+                            <p>
+                                <button type="button" class="btn btn-primary" (click)="openFileSelector($event)"><i class="fas fa-upload"></i></button>
+                            </p>
+                        </ng-template>
+                    </ngx-file-drop>
+            </div>
+            <div *ngIf="mensajeRespuesta?.codigoPeticion === 2">
+                <div class="alert alert-danger" role="alert">
+                    {{mensajeRespuesta?.mensajePeticion}}
+                </div>
+                <div class="col-md-6 offset-md-3 text-center" style="margin-bottom: 20px;">
+                    <button class="btn btn-danger" (click)="exportarReporteError();">DESCARGAR</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-md-12" *ngIf="tipoConsulta!=undefined">
+            <div class="card-header">
+               {{TipoOpcion}}
+            </div>
+            <div class="card-body">
+                <app-consultar-archivo #consultarCargue [tipoConsulta]="tipoConsulta" [tipo]="tipo" ></app-consultar-archivo>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">{{mensajeSpiner}}</p>
+</ngx-spinner>
+

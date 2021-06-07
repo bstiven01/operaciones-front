@@ -1,0 +1,195 @@
+<!-- <app-cambio-operador-disponible></app-cambio-operador-disponible> -->
+<div class="container-fluid">
+
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+    </div>
+
+    <div class="row">
+
+        <div class="card md-12 col-lg-12">
+
+            <div class="card-header">
+                OPERACIONES
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="assets/img/operaciones2.png" class="img-fluid" />
+                                <hr>
+                                <a routerLink="/operacion" class="btn btn-primary" style="width: 100%;">Operaciones</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+
+                        <!--<div class="table-responsive">
+                            <p-table #dt [value]="payload" [columns]="cols" [rowHover]="true" [rows]="5"
+                                [loading]="loading" [rowsPerPageOptions]="[5,10,15]" [paginator]="true">
+                                <ng-template pTemplate="emptymessage">
+                                    No se encontraron resultados
+                                </ng-template>
+                                <ng-template pTemplate="colgroup" let-columns>
+                                    <colgroup>
+                                        <col *ngFor="let col of columns">
+                                    </colgroup>
+                                </ng-template>
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                            [ngStyle]="{'width': col.width}">
+                                            {{col.header}}
+                                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-nov let-columns="columns">
+                                    <tr>
+                                        <td>{{nov.fecha | date:'dd/MM/yy HH:mm:ss'}}</td>
+                                        <td>{{nov.idTipo.nombre}}</td>
+                                        <td>{{nov.motivo}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalnovedad" (click)="abrirModalNovedad(nov.id)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>-->
+                        <mat-card>
+
+                          <mat-card-content>
+
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                              <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+                              </mat-form-field>
+                            </div>
+
+                            <br>
+
+                            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                              <!-- Fecha -->
+                              <ng-container matColumnDef="Fecha">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fecha  | date:'dd/MM/yyyy, HH:mm:ss'}} </td>
+                              </ng-container>
+
+                              <!-- Tipo -->
+                              <ng-container matColumnDef="Tipo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.idTipo.nombre}} </td>
+                              </ng-container>
+
+                              <!-- Estado -->
+                              <ng-container matColumnDef="Estado">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                                <td mat-cell *matCellDef="let element"> {{element.idEstado.nombre}} </td>
+                              </ng-container>
+
+                              <!-- Motivo -->
+                              <ng-container matColumnDef="Motivo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Motivo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
+                              </ng-container>
+
+                              <!-- Editar -->
+                              <ng-container matColumnDef="Ver">
+                                <th mat-header-cell *matHeaderCellDef> Ver </th>
+                                <td mat-cell *matCellDef="let element">
+
+                                  <button *ngIf="!element.valorNuevo" mat-mini-fab color="basic" (click)="openNovedadSinCambio(element)">
+                                    <mat-icon>filter_tilt_shift</mat-icon>
+                                  </button>
+                                  <!-- ope.idEstado.codigo == 'NOV_PENDIENTE' &&  -->
+                                  <button *ngIf="!!element.valorNuevo" mat-mini-fab color="accent" (click)="openNovedadCambio(element)">
+                                    <mat-icon>flip_camera_android</mat-icon>
+                                  </button>
+                                </td>
+                              </ng-container>
+
+                              <!-- Deshabilitar -->
+                              <!-- <ng-container matColumnDef="Deshabilitar">
+                                      <th mat-header-cell *matHeaderCellDef> Deshabilitar </th>
+                                      <td mat-cell *matCellDef="let element">
+                                          <button mat-icon-button (click)="deshabilitarOperador(element)" color="warn">
+                                              <mat-icon>delete</mat-icon>
+                                          </button>
+                                      </td>
+                                  </ng-container> -->
+
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons> </mat-paginator>
+
+                          </mat-card-content>
+                        </mat-card>
+
+                    </div>
+                    <div class="col-md-2 text-center">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5><strong>Técnico de operaciones</strong></h5>
+                                <img width="150" src="assets/img/man.jpg" class="img-fluid round-image" />
+                                <hr>
+                                <p>Orlando Cruz Becerra</p>
+                                <p><strong>Documento:</strong> C.C</p>
+                                <p><strong>N° Documento:</strong> 10205825635</p>
+                                <p><strong>RH:</strong>O+</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card md-12 col-lg-12 top-20">
+            <div class="card-header">
+                REPORTE ACTUAL
+            </div>
+            <div class="card-body">
+                <div>
+                    <div>
+                        <div style="display: block">
+                            <p-chart type="pie" [data]="data"></p-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<--- Modal Asistencia --
+<div>
+    <div #myModal class="modal fade" id="modalnovedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-full" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #f44336;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <app-editar-novedad [idNovedad]="idNovedad" (mensajeSalida)="recibirSalida($event)"></app-editar-novedad>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

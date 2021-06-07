@@ -1,0 +1,124 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <img src="" width="50" />
+        </div>
+        <div class="sidebar-brand-text" style="margin-left: 5px;">EMPRESA DE TRANSPORTE</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" routerLink="">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/operacion">
+            <i class="fas fa-sync"></i>
+            <span>Operación</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/servicio">
+            <i class="fas fa-sync"></i>
+            <span>servicio</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/rutas">
+            <i class="fas fa-sync"></i>
+            <span>Rutas</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-folder"></i>
+            <span>Cargar archivos</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" routerLink="archivo">Reporte de Control</a>
+                <a class="collapse-item" routerLink="archivo/uno">Proyección KM Mensual</a>
+                <a class="collapse-item" routerLink="archivo/dos">KM Diario SCANIA</a>
+                <a class="collapse-item" routerLink="archivo/tres">Mantenimiento</a>
+                <a class="collapse-item" routerLink="archivo/novedad">Novedades</a>
+                <a class="collapse-item" routerLink="archivo/matriz">Matriz Distancia</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/cambio">
+            <i class="far fa-clock"></i>
+            <span>Gestionar cambios</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/operador/consulta">
+            <i class="far fa-id-card"></i>
+            <span>Consulta operador</span>
+        </a>
+    </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/reportes/interrupciones">
+            <i class="fas fa-file-upload"></i>
+            <span>Reportes</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConfiguration"
+          aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-folder"></i>
+          <span>Configuración</span>
+      </a>
+      <div id="collapseConfiguration" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" routerLink="configuracion/operadores">Operadores</a>
+          </div>
+      </div>
+  </li>
+ <!--
+    <li class="nav-item">
+        <a class="nav-link" routerLink="">
+            <i class="fas fa-sync"></i>
+            <span>Gestionar programación</span>
+        </a>
+    </li>
+
+
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="">
+            <i class="fas fa-lock"></i>
+            <span>Administrar seguridad</span>
+        </a>
+    </li>
+
+
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="">
+            <i class="fas fa-check-square"></i>
+            <span>Generar reportes</span>
+        </a>
+    </li>
+    -->
+
+</ul>
+<!-- End of Sidebar -->

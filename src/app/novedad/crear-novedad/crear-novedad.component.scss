@@ -1,0 +1,11 @@
+form.ng-touched{
+    
+    textarea, select, .ng-invalid {
+        border: 1px solid red
+    }
+    textarea, select, .ng-valid{
+        border: 1px solid green
+    
+}
+     
+}

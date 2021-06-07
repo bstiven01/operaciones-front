@@ -1,0 +1,96 @@
+<form [formGroup]="myForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Novedad Cambio de Bus {{nombre_bus}}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <section fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="15px grid">
+
+        <!--Tipo Novedad-->
+        <mat-form-field fxFlex="30">
+          <mat-label>Tipo Novedad *</mat-label>
+          <mat-select formControlName="idTipoNovedad" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeNovedad of tiposDeNovedad" [value]="tipoDeNovedad">{{tipoDeNovedad.nombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idTipoNovedad.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!--Sitios-->
+        <mat-form-field fxFlex="30">
+          <mat-label>Sitio *</mat-label>
+          <mat-select formControlName="idSitio" [compareWith]="selectedSelect">
+            <mat-option *ngFor="let tipoDeSitio of tiposDeSitio" [value]="tipoDeSitio">{{tipoDeSitio.nombre}} {{tipoDeSitio.posicion}}
+            </mat-option>
+          </mat-select>
+          <mat-error matInput *ngIf="myForm.controls.idSitio.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Motivo -->
+        <mat-form-field fxFlex="60">
+          <mat-label>Motivo</mat-label>
+          <textarea matInput placeholder="Motivo" formControlName="motivo"></textarea>
+          <mat-error matInput *ngIf="myForm.controls.motivo.hasError('required')">
+            {{mensajeCampoRequerido}}
+          </mat-error>
+        </mat-form-field>
+
+      </section>
+
+
+      <section fxLayout="row" fxLayoutAlign="space-evenly center">
+
+        <mat-card fxFlex="50" class="card">
+          <mat-card-header>
+            <mat-card-title>Servicios</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content>
+
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <button mat-raised-button color="primary" (click)="sect()">Todos</button>
+            </div>
+
+            <mat-selection-list #servicios class="card-list" formControlName="servicios">
+              <mat-list-option *ngFor="let servicio of listDetalleServicios" [value]="servicio" color="primary">
+                {{servicio.busVirtual}} - {{servicio.idServicio.nombre}}- {{servicio.horaInicio}} - {{servicio.horaFin}}
+              </mat-list-option>
+            </mat-selection-list>
+
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card fxFlex="50" class="card">
+          <mat-card-header>
+            <mat-card-title>Buses</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content>
+
+            <mat-selection-list #disponibilidadBuses class="card-list" formControlName="idDisponibilidadBus">
+              <mat-list-option *ngFor="let bus of listDiponibilidadBuses" [value]="bus" color="primary">
+                {{bus.idBus.codigo}} - {{bus.idTipo.nombre}} - {{bus.horaInicio | date:'HH:mm'}} a {{bus.horaFin | date:'HH:mm'}}
+              </mat-list-option>
+            </mat-selection-list>
+
+          </mat-card-content>
+        </mat-card>
+
+      </section>
+
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="basic" (click)="closeDialog(false)">CERRAR</button>
+      <button mat-raised-button color="accent" (click)="pendiente()" [disabled]="banderaBotones">PENDIENTE</button>
+      <button mat-raised-button color="primary" (click)="reportar()" [disabled]="banderaBotones">REPORTAR</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

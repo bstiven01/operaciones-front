@@ -1,0 +1,258 @@
+<form [formGroup]="formulario">
+  <div class="row">
+
+    <!--<div class="card col-md-12">
+            <div class="card-body row">
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-2" *ngFor="let i of filters">
+                            <div class="custom-control custom-radio">
+                                <input formControlName="filtros" value="{{i.id}}" type="radio" name="filtros"
+                                    class="custom-control-input" id="{{i.id}}">
+                                <label class="custom-control-label" for="{{i.id}}">{{i.Etiqueta}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group col-md-4">
+                    <input type="text" formControlName="consulta" class="form-control" placeholder="Buscar..." />
+                    <div class="input-group-prepend">
+                        <button class="btn btn-primary" (click)="consultaEspecifica()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="btn btn-secondary" (click)="consultaGeneral(); formulario.reset() ">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>-->
+
+    <div class="card col-md-12 top-20">
+      <div class="card-header">
+        <p>OPERACIONES</p>
+        <p-inplace closable="closable">
+          <span pInplaceDisplay>
+            <H1 *ngIf="payload">{{payload[0].fecha}}</H1>
+          </span>
+          <span pInplaceContent>
+            <!-- [maxDate]="maxDate"-->
+            <p-calendar formControlName="date" [minDate]="minDate" [readonlyInput]="true" inputId="min-max"
+              dateFormat="dd/mm/yy" (onSelect)="consultaGeneral()"></p-calendar>
+          </span>
+        </p-inplace>
+      </div>
+      <div class="card-body card-table">
+        <div class="table-responsive">
+          <p-table #dt [value]="payload" [columns]="selectedColumns" [scrollable]="true" [rowHover]="true" [rows]="25"
+            [loading]="loading" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [resizableColumns]="true"
+            styleClass="table table-striped">
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex" style="text-align:left">
+                <p-multiSelect [(ngModel)]="selectedColumns" [options]="cols" formControlName="selectedColumns"
+                  optionLabel="textoAlternativo" selectedItemsLabel="{0} columnas seleccionadas"
+                  [style]="{minWidth: '200px'}" defaultLabel="Escojer columnas">
+                </p-multiSelect>
+                <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()"
+                  class="p-button-info p-ml-auto" pTooltip="Exportar " tooltipPosition="bottom"
+                  style="float:right;"></button>
+                <button type="button" pButton pRipple icon="pi pi-refresh" (click)="resetTable();formulario.reset() "
+                  class="p-button-warning p-mr-2" pTooltip="Limpiar filtros " tooltipPosition="bottom"
+                  class="botonRecarga"></button>
+
+              </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width" pResizableColumn>
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.totalfield" pResizableColumn>
+                  {{col.header}}
+                  <p-sortIcon *ngIf="col.field != 'iconsNoveda' && col.field != 'accion'" [field]="col.totalfield"
+                    pTooltip="Click para ordenar"></p-sortIcon>
+                </th>
+              </tr>
+              <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{'width': col.width}"
+                  pResizableColumn>
+
+                  <input pInputText *ngSwitchCase="'codigoConductor'" formControlName="FcodigoConductor" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'nombreCompletoCondutor'" formControlName="FnombreCompletoCondutor"
+                    type="text" class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'sitioDesde'" formControlName="FsitioDesde" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'sitioHasta'" formControlName="FsitioHasta" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'horaInicio'" formControlName="FhoraInicio" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'horaFin'" formControlName="FhoraFin" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'codigoBus'" formControlName="FcodigoBus" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'nombreLinea'" formControlName="Flinea" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'busVirtual'" formControlName="FbusVirtual" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'tabla'" formControlName="FtipoTarea" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'equals')"
+                    class="form-control">
+
+                  <p-toggleButton *ngSwitchCase="'accion'" (onChange)="filtrarAsistencia($event)" [(ngModel)]="checked1"
+                    formControlName="FAsistentcia" offLabel="Todo" onLabel="'Asistencia'"></p-toggleButton>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-ope let-columns="columns">
+              <tr [pContextMenuRow]="ope">
+                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                  <div *ngSwitchCase="'iconsNoveda'">
+                    <i *ngIf="ope.tieneAsistencia" rel="tooltip" title="Asistencia" style="color: #107D11;"
+                      class="pi pi-check"></i>
+                    <i *ngIf="ope.tieneInAsistencia" rel="tooltip" title="Inasistencia" style="color: #f44336;"
+                      class="pi pi-times"></i>
+                    <i *ngIf="ope.tieneNovedadesPendientes" rel="tooltip" title="Novedades pendientes"
+                      style="color: gold;" class="far fa-flag"></i>
+                    <i *ngIf="ope.tieneNovedadesReportadas" rel="tooltip" title="Novedades reportadas"
+                      style="color:#107D11;" class="far fa-flag"></i>
+
+                  </div>
+                  <div *ngSwitchCase="'accion'">
+                    <!--<button pButton
+                      *ngIf="ope.linea.codigo == 'INICIO-S' || ope.linea.codigo === 'DISPO' || ope.linea.codigo === 'FIN-R-P' || ope.linea.codigo === 'DISPO-R'"
+                      type="button" icon="pi pi-check" class="ui-button-success" style="margin-right: .5em"
+                      (click)="makeAsistencia(ope)" [disabled]="ope.tieneAsistencia || ope.tieneInAsistencia"></button>-->
+
+                    <!--<button pButton type="button" icon="pi pi-eye" class="ui-button-info"
+                                            (click)="openNovedades(ope)" style="margin-right: .5em"></button>-->
+
+                    <!--<button *ngIf="ope.tieneNovedadesPendientes" pButton type="button" icon="pi pi-pencil"
+                      class="ui-button-secondary" data-toggle="modal" data-target="#modaleditasistencia"
+                      (click)="abrirModalNovedad(ope.novedades[0].id)"></button>-->
+
+                    <button
+                      *ngIf="ope.linea.codigo === 'INICIO-S' || ope.linea.codigo === 'DISPO' || ope.linea.codigo === 'FIN-R-P' || ope.linea.codigo === 'DISPO-R'
+                      || ope.linea.codigo === 'RELEVO-P'"
+                      mat-mini-fab color="primary" (click)="makeAsistencia(ope)"
+                      [disabled]="ope.tieneAsistencia || ope.tieneInAsistencia">
+                      <mat-icon>how_to_reg</mat-icon>
+                    </button>
+
+                    <button
+                      *ngIf="ope.linea.codigo === 'DISPO-R' || ope.linea.codigo === 'DISPO' || ope.linea.codigo === 'PATIO-N'"
+                      mat-mini-fab color="primary" (click)="openAsignarBus(ope)">
+                      <mat-icon>ev_station</mat-icon>
+                    </button>
+
+
+                    <button
+                      *ngIf="ope.linea.codigo === 'DISPO-R' || ope.linea.codigo === 'DISPO' || ope.linea.codigo === 'PATIO-N'"
+                      mat-mini-fab color="basic" (click)="irServicios(ope)">
+                      <mat-icon>calendar_today</mat-icon>
+                    </button>
+
+
+                    <!--<button
+                      *ngIf="ope.linea.codigo === 'DISPO-R' || ope.linea.codigo === 'DISPO' || ope.linea.codigo === 'PATIO-N'"
+                      pButton type="button" icon="pi pi-calendar-minus" class="ui-button-secondary"
+                      (click)="irServicios(ope)"></button>-->
+
+                    <button *ngIf="ope.linea.codigo !== 'DISPO-R' && ope.linea.codigo !== 'DISPO' && ope.linea.codigo !== 'PATIO-N' &&
+                      ope.linea.codigo !== 'INICIO-S' && ope.linea.codigo !== 'FIN-R-P'  && ope.linea.codigo !== 'RELEVO-P'" mat-mini-fab color="basic"
+                      (click)="openSinCambioSeleccion(ope)">
+                      <mat-icon>filter_tilt_shift</mat-icon>
+                    </button>
+
+                    <button
+                      *ngIf="ope.linea.codigo !== 'DISPO-R' && ope.linea.codigo !== 'DISPO' && ope.linea.codigo !== 'PATIO-N'"
+                      mat-mini-fab color="accent" (click)="openCambioSeleccion(ope)">
+                      <mat-icon>flip_camera_android</mat-icon>
+                    </button>
+                  </div>
+
+                  {{ope[col.field]}}
+
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="columns.length">
+                  No se encontraron resultados
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div *ngIf="payload!=undefined">Mostrando {{payload.length}} registros</div>
+              <div *ngIf="payload==undefined">Cargando registros...</div>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Modal Asistencia -->
+<div>
+  <div #myModal class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #f44336;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="ngIfModal">
+          <app-asistencia [asistenciaHabilitada]="asistenciaHabilitada"></app-asistencia>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Editar novedad -->
+<div>
+  <div #myModal class="modal fade" id="modaleditasistencia" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #f44336;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-editar-novedad [idNovedad]="idNovedad" (mensajeSalida)="recibirSalida($event)">
+          </app-editar-novedad>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<mat-card>
+
+  <mat-card-content>
+
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+
+      <div *ngFor="let item of lista_elementos">
+        <button mat-flat-button color="{{item.color}}" (click)="seleccion(item)">
+          <mat-icon>{{item.icono}}</mat-icon>
+          {{item.nombre}}
+        </button>
+      </div>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

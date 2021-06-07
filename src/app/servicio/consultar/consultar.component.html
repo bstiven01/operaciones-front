@@ -1,0 +1,52 @@
+<div class="card-body card-table" style="margin: 30px;">
+    <div class="table-responsive">
+        <p-table #dt [value]="servicios" [columns]="columnas" [scrollable]="true" [rowHover]="true"
+            [rows]="10" [loading]="loading" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+            [resizableColumns]="true" styleClass="table table-striped">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex" style="text-align:left">
+                    <button type="button" pButton pRipple icon="pi pi-refresh" style="margin-left: 12px;"
+                        (click)="getServicios()" class="p-button-warning p-mr-2"
+                        pTooltip="Actualizar tabla" tooltipPosition="bottom" class="botonRecarga"></button>
+                </div>
+            </ng-template>
+            
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columnas" [pSortableColumn]="col" pResizableColumn>
+                        {{col}}
+                        <p-sortIcon [field]="col" pTooltip="Click para ordenar"></p-sortIcon>
+                    </th>
+                    <th>
+                        <div>Acciones</div>
+                    </th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of columns"><input pInputText type="text" class="ui-column-filter form-control"></th>
+                    <th><div><p-button icon="pi pi-plus-circle" class="p-button-warning" pTooltip="Crear un nuevo servicio" (click)="crear()"></p-button></div></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-servicio let-rowIndex="rowIndex" let-cols="columns">
+                <tr [pContextMenuRow]="servicio">
+                    
+                    <td *ngFor="let col of cols">{{servicio[col]}}</td>
+                    <td>
+                        <p-button icon="pi pi-user-edit" class="p-button-success" [style]="{'margin-right': '12px'}" pTooltip="Editar registro" (click)="editar(servicio, rowIndex)"></p-button>
+                        <p-button icon="pi pi-trash" class="p-button-warning" pTooltip="Eliminar registro" (click)="eliminar(servicio, rowIndex)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length">
+                        No se encontraron resultados
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div *ngIf="!loading">Mostrando {{servicios?.length}} registros</div>
+                <div *ngIf="loading">Cargando registros...</div>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

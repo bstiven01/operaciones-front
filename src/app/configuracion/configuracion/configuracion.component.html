@@ -1,0 +1,84 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Modificar configuración</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="card md-12 col-md-12">
+            <div class="card-header">
+                Configuración
+            </div>
+            <div class="card-body" *ngIf="configuracion != null">
+
+                <div class="p-5">
+
+                    <form class="user" [formGroup]="formulario" (ngSubmit)="editar()">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-user"
+                                    placeholder="Nombre de empresa*" formControlName="nombreEmpresa" [(ngModel)]="configuracion.nombreEmpresa" required />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-user"
+                                    placeholder="Nombre de administrador*" formControlName="nombreAdmin" [(ngModel)]="configuracion.nombreAdmin" required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input type="email" class="form-control form-control-user"
+                                    placeholder="Correo admin*" formControlName="correoAdmin" [(ngModel)]="configuracion.correoAdmin" required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-user"
+                                    placeholder="Asunto Email Cliente*" formControlName="asuntoEmailCliente" [(ngModel)]="configuracion.asuntoEmailCliente" required />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-user"
+                                    placeholder="Asunto Email Admin*" formControlName="asuntoEmailAdmin" [(ngModel)]="configuracion.asuntoEmailAdmin" required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <textarea class="form-control" placeholder="Texto EmailCliente" formControlName="textoEmailCliente"  [(ngModel)]="configuracion.textoEmailCliente" required ></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea class="form-control" placeholder="Texto Email Admin" formControlName="textoEmailAdmin" [(ngModel)]="configuracion.textoEmailAdmin" required ></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label>Seleccionar archivo:</label>
+                                <input type="file" name="file" class="form-control"  (change)="fileChanged($event)" accept="image/*" />
+                                <input hidden type="text" formControlName="logo" [(ngModel)]="logo" />
+                            </div>
+                            <div class="col-md-6" *ngIf="logo != null">
+                                <img [src]="logo" width="200" />
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row justify-content-center">
+                            <div class="col-md-3">
+                                <button type="button" routerLink="/usuario" class="btn btn-danger btn-user btn-block">
+                                    Regresar
+                                </button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary btn-user btn-block" [disabled]="!formulario.valid">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

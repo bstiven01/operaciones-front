@@ -1,0 +1,51 @@
+<p-card header="Cambio de Operador" subheader="Espacio para remplazar un servicio con un operador disponible"
+  styleClass="p-card-shadow">
+  <!-- [style]="{width: '360px'}" -->
+  <p-header>
+
+  </p-header>
+
+  <div class="p-grid p-mt-2">
+    <section class="p-col">
+
+      <h6>Seleccione los viajes que desea remplazar</h6>
+
+      <p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true"
+        [multiple]="false" optionLabel="name" [listStyle]="{'max-height':'250px'}" [style]="{'width':'80%'}"
+        ngDefaultControl>
+        <ng-template let-country pTemplate="item" class="p-grid">
+          <div class="p-grid">
+            <div class="p-col">{{country.value.name}}</div>
+
+            <div class="p-col">{{country.value.code}}</div>
+          </div>
+        </ng-template>
+      </p-listbox>
+
+    </section>
+
+    <section class="p-col">
+
+      <h6>Seleccione el nuevo operador</h6>
+      <p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true"
+        [multiple]="false" optionLabel="name" [listStyle]="{'max-height':'250px'}" [style]="{'width':'80%'}"
+        ngDefaultControl>
+        <ng-template let-country pTemplate="item" class="p-grid">
+          <div class="p-grid">
+            <div class="p-col">{{country.value.name}}</div>
+
+            <div class="p-col">{{country.value.code}}</div>
+          </div>
+        </ng-template>
+      </p-listbox>
+
+    </section>
+  </div>
+  <p-footer>
+    <button pButton type="button" label="GUARDAR" class="ui-button-rounded ui-button-success"></button>
+    <button pButton type="button" label="CERRAR" class="ui-button-rounded ui-button-secondary"></button>
+
+  </p-footer>
+
+
+</p-card>

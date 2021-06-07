@@ -1,0 +1,258 @@
+<div class="card col-md-12 top-20">
+    <div class="card-header primary">
+        Crear novedad
+    </div>
+    <div class="card-body">
+
+        <form class="user" [formGroup]="myForm">
+
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Tipo *</label>
+
+                            <ng-select [items]="padresTipoNovedad" formControlName="idPadreTipoNovedad" autofocus
+                                bindLabel="nombre"
+                                (ngModelChange)="llenarSelect(myForm.controls.idPadreTipoNovedad.value.id, myForm.controls.idPadreTipoNovedad.value.codigo)">
+                            </ng-select>
+
+                        </div>
+                        <div class="col-md-4">
+                            <label>Novedad *</label>
+
+                            <ng-select [items]="tiposNovedad" formControlName="idTipoNovedad" autofocus
+                                bindLabel="nombre">
+                            </ng-select>
+
+
+                        </div>
+                        <div class="col-md-4" *ngIf="ngIfOperador">
+                            <label>Operador de relevo*</label>
+
+                            <ng-select [items]="operadores" formControlName="idTipoOculto" autofocus bindLabel="codigo">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <span >{{ item.codigo + ' - ' + item.primerNombre + ' ' + item.segundoApellido}}</span>
+                                </ng-template>
+                                
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                      <span >{{ item.codigo + ' - ' + item.primerNombre + ' ' + item.segundoApellido}}</span>
+                                </ng-template>
+                            </ng-select>
+                            
+
+                        </div>
+                        <div class="col-md-4" *ngIf="ngIfBus">
+                            <label>Bus *</label>
+
+                            <!--
+                            <ng-select [items]="buses" formControlName="idTipoOculto" autofocus bindLabel="codigo">
+                            </ng-select>
+                            -->
+
+                            <ng-select [items]="buses" formControlName="idTipoOculto" autofocus bindLabel="codigo">
+
+                                <ng-template ng-label-tmp let-item="item">
+                                    <span >{{ item.codigo }}</span>
+                                </ng-template>
+                                
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                      <span >{{ item.codigo  }}</span>
+                                </ng-template>
+            
+                            </ng-select>
+
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label>Sitio *</label>
+                            <ng-select [items]="sitios" formControlName="idSitio" autofocus bindLabel="nombre">
+
+                                <ng-template ng-label-tmp let-item="item">
+                                    <span >{{ item.nombre + item.posicion }}</span>
+                                </ng-template>
+                                
+                                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                                      <span >{{ item.nombre + item.posicion }}</span>
+                                </ng-template>
+
+                            </ng-select>
+                        </div>
+
+                        <div class="col-md-4" *ngIf="ngIfServicio">
+                            <label>Servicio *</label>
+
+                            <ng-select [items]="servicios" formControlName="idTipoOculto" autofocus bindLabel="nombre">
+                            </ng-select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Motivo *</label>
+                            <textarea class="form-control" formControlName="motivo" maxlength="500"></textarea>
+                            <small>0 - 500 caracteres</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" *ngIf="!asistenciaHabilitada">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Inasistencia</h5>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+
+                                <button type="button" class="btn btn-danger" (click)="makeInasistencia()"><i
+                                        class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-danger btn-user btn-block" (click)="closeModal()">
+                        Regresar
+                    </button>
+                </div>
+                <div class="col-md-3" *ngIf="ngIfBotonesNovedad">
+                    <button type="button" class="btn btn-warning btn-user btn-block" (click)="submit(1)"
+                        [disabled]="myForm.invalid || myForm.untouched">
+                        Pendiente
+                    </button>
+                </div>
+
+                <div class="col-md-3" *ngIf="ngIfBotonesNovedad">
+                    <button type="button" class="btn btn-success btn-user btn-block" (click)="submit(2)"
+                        [disabled]="myForm.invalid || myForm.untouched">
+                        Reportar
+                    </button>
+                </div>
+
+                <div class="col-md-3" *ngIf="ngIfBotonesAsistencia">
+                    <button type="button" class="btn btn-success btn-user btn-block" (click)="submit(3)"
+                        [disabled]="myForm.invalid || myForm.untouched">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="card-body card-table">
+                        <div class="table-responsive">
+                            <p-table #dt [value]="payload" [columns]="selectedColumns" [scrollable]="true"
+                                [rowHover]="true" [rows]="10" [loading]="loading" [rowsPerPageOptions]="[10,25,50]"
+                                [paginator]="true" [resizableColumns]="true" styleClass="table table-striped">
+
+                                <ng-template pTemplate="caption">
+                                    <div style="text-align:left">
+                                        <p-multiSelect [(ngModel)]="selectedColumns" [options]="cols"
+                                            formControlName="selectedColumns" optionLabel="header"
+                                            selectedItemsLabel="{0} columnas seleccionadas"
+                                            [style]="{minWidth: '200px'}" defaultLabel="Escojer columnas">
+                                        </p-multiSelect>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template pTemplate="emptymessage">
+                                    No se encontraron resultados
+                                </ng-template>
+
+                                <ng-template pTemplate="colgroup" let-columns>
+                                    <colgroup>
+                                        <col *ngFor="let col of columns" [style.width]="col.width" pResizableColumn>
+                                    </colgroup>
+                                </ng-template>
+
+                                <ng-template pTemplate="header" let-columns>
+
+                                    <!--Fila Principal con las columnas-->
+                                    <tr>
+                                        <th *ngFor="let col of columns" [pSortableColumn]="col.totalfield"
+                                            pResizableColumn>
+                                            {{col.header}}
+
+                                            <p-sortIcon *ngIf="col.field != 'accion'" [field]="col.field"
+                                                ariaLabel="Activate to sort"></p-sortIcon>
+                                        </th>
+                                    </tr>
+
+                                    <!--Fila Secundaria con los campos de filtro-->
+
+                                    <tr>
+                                        <th *ngFor="let col of columns" [ngSwitch]="col.field"
+                                            [ngStyle]="{'width': col.width}" pResizableColumn>
+
+                                            <input pInputText *ngSwitchCase="'fecha'" formControlName="Ffecha"
+                                                type="text"
+                                                (input)="dt.filter($event.target.value, col.field, 'fechaDate')"
+                                                class="form-control">
+
+                                            <input pInputText *ngSwitchCase="'idTipo'" formControlName="Ftipo"
+                                                type="text" class="ui-column-filter"
+                                                (input)="dt.filter($event.target.value, col.totalfield, 'contains')"
+                                                class="form-control">
+
+                                            <input pInputText *ngSwitchCase="'idEstado'" formControlName="Festado"
+                                                type="text" class="ui-column-filter"
+                                                (input)="dt.filter($event.target.value,  col.totalfield, 'contains')"
+                                                class="form-control">
+
+                                            <input pInputText *ngSwitchCase="'valorAnterior'"
+                                                formControlName="Vanterior" type="text" class="ui-column-filter"
+                                                (input)="dt.filter($event.target.value, col.field, 'contains')"
+                                                class="form-control">
+
+                                            <input pInputText *ngSwitchCase="'valorNuevo'" formControlName="Vnuevo"
+                                                type="text" class="ui-column-filter"
+                                                (input)="dt.filter($event.target.value, col.field, 'contains')"
+                                                class="form-control">
+
+                                            <input pInputText *ngSwitchCase="'motivo'" formControlName="Fmotivo"
+                                                type="text" class="ui-column-filter"
+                                                (input)="dt.filter($event.target.value, col.field, 'contains')"
+                                                class="form-control">
+
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <!--Tercera y Siguientes filas con la informacion-->
+                                <ng-template pTemplate="body" let-ope let-columns="columns">
+                                    <tr [ngClass]="ope.idEstado.codigo == 'NOV_PENDIENTE' ? 'pendiente' : 'reportada'">
+                                        <!--<tr>-->
+                                        <td *ngFor="let col of columns">
+                                            <p *ngIf="col.field=='fecha'">
+                                                {{ope.fecha | date:'dd/MM/yyyy, HH:mm:ss'}}
+                                            </p>
+
+                                            <div *ngIf="col.field === 'accion'">
+                                                <div *ngIf="ope.idEstado.codigo === 'NOV_PENDIENTE'">
+                                                    <button pButton type="button"
+                                                        class="ui-button-rounded ui-button-success"
+                                                        (click)="reportar(ope)" label="Reportar">
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <p *ngIf="col.field!='fecha' && col.field!='accion'">
+                                                {{ope[col.field]== null || col.subfield==null ? ope[col.field] : ope[col.field][col.subfield]}}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white"></p>
+</ngx-spinner>

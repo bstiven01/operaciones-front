@@ -1,0 +1,82 @@
+<mat-card>
+
+  <mat-card-header>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="openDialog()">Agregar Operador</button>
+    </div>
+
+    <br>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- Index -->
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </th>
+        <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+      </ng-container>
+
+      <!-- Documento -->
+      <ng-container matColumnDef="numeroDocumento">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Documento </th>
+        <td mat-cell *matCellDef="let element"> {{element.numeroDocumento}} </td>
+      </ng-container>
+
+      <!-- Primer Nombre -->
+      <ng-container matColumnDef="primerNombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Primer Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.primerNombre}} </td>
+      </ng-container>
+
+      <!-- Primer Apellido -->
+      <ng-container matColumnDef="primerApellido">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Primer Apellido </th>
+        <td mat-cell *matCellDef="let element"> {{element.primerApellido}} </td>
+      </ng-container>
+
+      <!-- Editar -->
+      <ng-container matColumnDef="Editar">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="openDialog(element)" class="color-editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Deshabilitar -->
+      <!-- <ng-container matColumnDef="Deshabilitar">
+              <th mat-header-cell *matHeaderCellDef> Deshabilitar </th>
+              <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="deshabilitarOperador(element)" color="warn">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+              </td>
+          </ng-container> -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons> </mat-paginator>
+
+  </mat-card-content>
+</mat-card>
+
+<!--
+
+            <div>
+              <mat-slide-toggle color="accent" (change)="checkRemitido($event)" >Estado
+              </mat-slide-toggle>
+               [checked]="checkedRemitido"
+            </div> -->
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white"></p>
+</ngx-spinner>

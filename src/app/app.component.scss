@@ -1,0 +1,409 @@
+:host ::ng-deep{
+
+
+    /* SCROLL BAR */
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #f44336;
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #f44336;
+    }
+    /* END SCROLL BAR */
+
+    .float-button{
+        position:fixed;
+        width:60px;
+        height:60px;
+        bottom:40px;
+        right:40px;
+        background-color:#4e73df;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        box-shadow: 2px 2px 3px #999;
+    }
+
+    .my-float{
+        margin-top:22px;
+    }
+
+    select{
+        padding: 0 !important;
+        height: 50px !important;
+        padding-left: 10px !important;
+    }
+
+    .card-header{
+        margin-left: -12px;
+        margin-right: -12px;
+    }
+
+    .long-card{
+        .card-header{
+            margin-left: 0;
+            margin-right: 0;
+            background: #F44336;
+            color: #FFF;
+        }
+    }
+
+    .sidebar{
+        height: 100%;
+    }
+
+    .btn-primary{
+        background: #F44336;
+        border: #e30713;
+    }
+
+    .btn-link{
+        color: #ffffff;
+    }
+
+    .sidebar {
+        background-color: #F44336;
+        background-image: linear-gradient(180deg,#cb2917 10%,#F44336 100%);
+        background-size: cover;
+    }
+
+    .border-left-primary{
+        border-left: .25rem solid #F44336!important;
+    }
+    .text-primary{
+        color: #F44336!important;
+    }
+
+    .drag-box{
+        height: 200px;
+        border: dashed 2px;
+        border-radius: 10px;
+    }
+
+    .space-top{
+        margin-top: 20px;
+    }
+
+    .round-image{
+        border-radius: 50%;
+    }
+
+    .top-20{
+        margin-top: 20px !important;
+    }
+
+    .file-menu{
+        li{
+            cursor: pointer;
+        }
+    }
+
+
+    .ngx-file-drop__drop-zone{
+        border-radius: 0 !important;
+        border-color: #f44336 !important;
+    }
+
+    .ngx-file-drop__content{
+        color: #f44336 !important;
+    }
+
+    .ui-widget-overlay{
+        background:none;
+    }
+
+    .card-table{
+        padding: 0;
+        margin-left: -13px;
+        margin-bottom: -17px;
+        margin-right: -13px;
+    }
+
+    /* UI TABLE */
+    /*body .ui-table .ui-table-caption, body .ui-table .ui-table-summary{
+        background-color: transparent;
+    }*/
+
+    body .ui-paginator{
+        background-color: transparent;
+        border: none;
+        padding: 5px;
+    }
+
+    body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active{
+        border-radius: .25rem;
+    }
+
+
+    /* END UI TABLE */
+
+    /*.alert-margin{
+        margin-top: 15px;
+    }
+
+    .center-vertically{
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    body .ui-tabmenu .ui-tabmenu-nav{
+        border: none;
+    }*/
+
+    /*body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem{
+        background-color: #ffffff;
+    }
+
+    body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active{
+        background-color: #f44336;
+        border: 1px solid #ff4a3c;
+    }*/
+
+    .modal-full{
+        max-width: 100%;
+        margin: 20px;
+    }
+
+    .btn-blue{
+        background-color: #116fbf;
+    }
+
+    .card-header-no-margin{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .center-vert{
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .ng-select div, .ng-select input, .ng-select span{
+        font-size: 11px;
+    }
+
+    .ng-select-container{
+        font-size: .8rem !important;
+        border-radius: 10rem !important ;
+        padding: 1.5rem 1rem !important;
+    }
+
+    .ng-select .ng-select-container .ng-value-container .ng-input>input{
+        margin-top: 12px;
+    }
+
+}
+
+
+
+
+
+/* botones por dia */
+.cal-day-view .cal-event {
+  white-space: pre !important;
+  color: #000000 !important;
+}
+
+/* color badge total por dia calendario */
+.cal-month-view .cal-day-badge {
+  background-color: #d5f71c !important;
+  color: #000 !important;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Spinner */
+.overlay {
+   opacity: 0.8 !important;
+}
+
+/* Table  */
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+/*Center table*/
+.mat-sort-header-container{
+  text-align: center !important;
+  flex-direction: column !important;
+  justify-content: center;
+}
+
+/*Center table*/
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 20%;
+}
+
+/*Center Header*/
+th.mat-header-cell {
+  text-align: center !important;
+}
+
+
+
+/*NUEVO*/
+.color-cerrar {
+  background-color: #607D8B !important;
+  color: white !important;
+}
+
+.color-editar {
+  /*background-color: #0091EA !important;*/
+  color: #0091EA !important;
+}
+
+.color-adjuntar {
+  background-color: #4f4caf !important;
+  color: white !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.width-card {
+  max-width: 100%;
+}
+
+.width-card-50 {
+  max-width: 40%;
+}
+
+.width-card-30 {
+  width: 30%;
+}
+
+.height-card {
+  height: 100%;
+}
+
+.width-card-into {
+  max-width: 100%;
+}
+
+.width-card-70 {
+  max-width: 70%;
+  margin: auto;
+}
+
+.centre {
+  margin: auto;
+}
+
+
+.width-form-field-15 {
+  width: 15%;
+}
+
+.width-form-field-20 {
+  width: 20%;
+}
+
+.width-form-field-30 {
+  width: 30%;
+}
+
+.width-form-field-40 {
+  width: 40%;
+}
+
+.width-form-field-50 {
+  width: 50%;
+}
+
+.width-form-field-60 {
+  width: 63%;
+}
+
+.width-form-field-90 {
+  width: 90%;
+}
+
+
+
+.mat-fab .mat-button-wrapper {
+  padding: 0px 0px !important;
+  line-height: 0px !important;
+
+}
+
+.mat-mini-fab .mat-button-wrapper{
+  padding: 0px 0 !important;
+}
+
+.mat-icon {
+
+  height: auto !important;
+  width: auto !important;
+  font-size: 35px !important;
+}
+
+/*Parametros*/
+.lista-parametros {
+  width: 240px;
+  /*height: 100vh; genera un nuevo scroll*/
+  overflow: auto;
+  padding-top: 0;
+  position: sticky;
+  border-right: 1px solid hsla(0, 0%, 0%, 0.12);/*Linea lateral*/
+}
+
+
+/*Estadisticas*/
+mat-progress-spinner {
+  width: 0px !important;
+}
+
+.class-div-spinner {
+  width: 100px;
+  /* height: 155px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.class-text-spinner {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0rem !important;
+  font-size: 25px !important;
+  font-weight: bold;
+}
+/*
+.class-dashboard {
+  height: 543px;
+}*/
+
+.class-mini-card .mat-card-header .mat-card-title {
+  font-size: 18px !important;
+}
+
+

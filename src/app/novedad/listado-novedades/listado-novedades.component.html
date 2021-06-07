@@ -1,0 +1,199 @@
+<form [formGroup]="formulario">
+  <div class="row">
+
+    <div class="card col-md-12">
+      <div class="card-body row">
+
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-2" *ngFor="let i of filters">
+              <div class="custom-control custom-radio">
+                <input formControlName="filtros" value="{{i.id}}&{{i.Etiqueta}}" type="radio" name="filtros"
+                  class="custom-control-input" id="{{i.id}}">
+                <label class="custom-control-label" for="{{i.id}}">{{i.Etiqueta}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="input-group col-md-4">
+          <input type="text" formControlName="consulta" class="form-control" placeholder="Buscar..." />
+          <div class="input-group-prepend">
+            <button class="btn btn-primary" (click)="consultaEspecifica()">
+              <i class="fas fa-search"></i>
+            </button>
+            <button class="btn btn-secondary" (click)="consultaGeneral(); formulario.reset() ">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card col-md-12 top-20">
+
+      <div class="card-header">
+        <p>NOVEDADES</p>
+        <p-inplace closable="closable">
+          <span pInplaceDisplay>
+            <H1 *ngIf="payload">{{payload[0]?.fecha}}</H1>
+          </span>
+          <span pInplaceContent>
+            <!-- [maxDate]="maxDate"-->
+            <p-calendar formControlName="date" [minDate]="minDate" [readonlyInput]="true" inputId="min-max"
+              dateFormat="dd/mm/yy" (onSelect)="consultaGeneral()"></p-calendar>
+          </span>
+        </p-inplace>
+      </div>
+
+      <div class="card-body card-table">
+        <div class="table-responsive">
+          <p-table #dt [value]="payload" [columns]="selectedColumns" [scrollable]="true" [rowHover]="true" [rows]="10"
+            [loading]="loading" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" styleClass="table table-striped"
+            dataKey="id">
+            <!-- COLGROUP -->
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width" pResizableColumn>
+              </colgroup>
+            </ng-template>
+            <!-- HEADER -->
+            <ng-template pTemplate="header" let-columns>
+              <!-- ORDENADORES -->
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.totalfield" pResizableColumn>
+                  {{col.header}}
+                  <p-sortIcon *ngIf="col.field != 'accion' && col.field != 'colores'" [field]="col.totalfield">
+                  </p-sortIcon>
+                </th>
+              </tr>
+              <!-- FILTROS -->
+              <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.header" [ngStyle]="{'width': col.width}"
+                  pResizableColumn>
+                  <input pInputText *ngSwitchCase="'FECHA'" formControlName="Ffecha" type="text"
+                    (input)="dt.filter($event.target.value, col.field, 'contains')" class="form-control">
+
+                  <input pInputText *ngSwitchCase="'MOTIVO'" formControlName="Fmotivo" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'ESTADO'" formControlName="Festado" type="text"
+                    class="ui-column-filter" (input)="dt.filter($event.target.value,  col.totalfield, 'contains')"
+                    class="form-control">
+
+                  <input pInputText *ngSwitchCase="'CLASE'" formControlName="Ftipo" type="text" class="ui-column-filter"
+                    (input)="dt.filter($event.target.value, col.totalfield, 'contains')" class="form-control">
+
+                  <input pInputText *ngSwitchCase="'TIPO'" formControlName="Ctipo" type="text" class="ui-column-filter"
+                    (input)="dt.filter($event.target.value, col.totalfield, 'contains')" class="form-control">
+                </th>
+              </tr>
+            </ng-template>
+            <!-- BODY -->
+            <ng-template pTemplate="body" let-ope let-expanded="expanded">
+              <tr>
+                <td [ngClass]="ope.idEstado.codigo == 'NOV_PENDIENTE' ? 'pendiente' : 'reportada'">
+                </td>
+                <td>
+                  <button *ngIf="ope.idTipo.nombreTipoNovedadPadre !='SERVICIO'" type="button"
+                    (click)="consultarDetalle(ope)" pButton pRipple [pRowToggler]="ope"
+                    class="p-button-text p-button-rounded p-button-plain"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <td>{{ope.fecha | date:'dd/MM/yyyy, HH:mm:ss'}}</td>
+                <td>
+                  <button type="button" pButton (click)="seleccionarNovedad($event,ope,op3)"
+                    icon="pi pi-search"></button>
+                  <!--<button *ngIf="ope.idEstado.codigo == 'NOV_PENDIENTE'" pButton type="button"
+                                        icon="pi pi-pencil" class="ui-button-secondary" data-target="#modaleditnovedad"
+                                        (click)="abrirModalNovedad(ope.id)" data-toggle="modal">
+                                    </button>-->
+                  <!-- ope.idEstado.codigo == 'NOV_PENDIENTE' &&  -->
+                  <button *ngIf="!ope.valorNuevo" mat-mini-fab color="basic" (click)="openNovedadSinCambio(ope)">
+                    <mat-icon>filter_tilt_shift</mat-icon>
+                  </button>
+                  <!-- ope.idEstado.codigo == 'NOV_PENDIENTE' &&  -->
+                  <button *ngIf="!!ope.valorNuevo" mat-mini-fab color="accent" (click)="openNovedadCambio(ope)">
+                    <mat-icon>flip_camera_android</mat-icon>
+                  </button>
+                </td>
+                <td> {{ope.idEstado.nombre}}</td>
+                <td> {{ope.idTipo.idTipoNovedad.nombre}}</td>
+                <td> {{ope.idTipo.nombre}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-ope>
+              <tr>
+                <td colspan="7">
+                  <div class="p-p-3">
+                    <div *ngIf="ope.idTipo.nombreTipoNovedadPadre=='OPERADOR'">
+                      <b>Valor anterior:</b><br>
+                      Nombre:{{ope.valAnterior?.primerNombre}} {{ope.valAnterior?.segundoNombre}}
+                      {{ope.valAnterior?.primerApellido}} {{ope.valAnterior?.segundoApellido}}
+                      <br>
+                      Codigo:{{ope.valAnterior?.codigo}}<br>
+                      <b>Valor nuevo:</b><br>
+                      Nombre:{{ope.valnuevo?.primerNombre}} {{ope.valnuevo?.segundoNombre}}
+                      {{ope.valnuevo?.primerApellido}} {{ope.valnuevo?.segundoApellido}} <br>
+                      Codigo:{{ope.valnuevo?.codigo}}<br>
+                    </div>
+                    <div *ngIf="ope.idTipo.nombreTipoNovedadPadre=='BUS'">
+                      <b>Valor anterior:</b><br>
+                      Placa:{{ope.valAnterior?.placa}}<br>
+                      Codigo:{{ope.valAnterior?.codigo}}<br>
+                      <b>Valor nuevo:</b><br>
+                      Placa:{{ope.valnuevo?.placa}}<br>
+                      Codigo:{{ope.valnuevo?.codigo}}<br>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="columns.length">
+                  No se encontraron resultados
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <p-overlayPanel #op3>
+    <ng-template pTemplate>
+      <div *ngIf="novedadSeleccionada" class="motivo">
+        <p>{{novedadSeleccionada.motivo}}</p>
+      </div>
+    </ng-template>
+  </p-overlayPanel>
+</form>
+
+
+
+<!-- Modal Asistencia -->
+<!--<div>
+    <div #myModal class="modal fade" id="modaleditnovedad" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-full" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #f44336;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <app-editar-novedad [idNovedad]="idNovedad" (mensajeSalida)="recibirSalida($event)">
+                    </app-editar-novedad>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
